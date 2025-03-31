@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 120px;
+  border-bottom: 1px solid var(--c-badges);
+  background-color: var(--c-badges);
+}
+.logo {
+  height: 16px;
+  width: 104px;
+}
+.nav {
+  display: flex;
+  gap: 32px;
+}
+.active {
+  color: var(--c-button-hover);
+}
