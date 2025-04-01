@@ -1,0 +1,91 @@
+.box {
+  margin-top: 84px;
+  margin-bottom: 56px;
+}
+.form {
+  display: flex;
+  gap: 16px;
+  align-items: end;
+  justify-content: center;
+}
+.label {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.33333;
+  color: var(--c-gray);
+}
+.select,
+.number {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--c-main);
+  background-color: var(--c-inputs);
+  appearance: textfield;
+  border: none;
+  padding: 0;
+  outline: transparent;
+  height: 44px;
+}
+.number::-webkit-outer-spin-button,
+.number::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.to {
+  padding-left: 42px;
+  border-radius: 0 12px 12px 0;
+  width: 118px;
+}
+.from {
+  border-radius: 12px 0 0 12px;
+  padding-left: 62px;
+  width: 98px;
+  border-right: 1px solid var(--c-gray-light);
+}
+.arrow {
+  height: 16px;
+  width: 16px;
+}
+.button {
+  font-weight: 600;
+  color: var(--c-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding: 12px 51px;
+  background-color: var(--c-button);
+  transition: background-color 250ms ease-in-out;
+  height: max-content;
+}
+
+.button:hover,
+.button:focus {
+  background-color: var(--c-button-hover);
+}
+
+.pseudo {
+  margin-top: 8px;
+  position: relative;
+}
+.pseudo::after {
+  content: "From";
+  position: absolute;
+  bottom: 12px;
+  left: 21px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--c-main);
+}
+.pseudo::before {
+  content: "To";
+  position: absolute;
+  bottom: 12px;
+  left: 182px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--c-main);
+}

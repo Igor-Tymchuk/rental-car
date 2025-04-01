@@ -39,7 +39,6 @@
   align-items: center;
   justify-content: center;
   border-radius: 12px;
-  width: max-content;
   padding: 12px 99px;
   background-color: var(--c-button);
   margin-bottom: 60px;
