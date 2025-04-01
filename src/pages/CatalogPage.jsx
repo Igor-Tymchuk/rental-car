@@ -1,4 +1,12 @@
+import CarList from "../components/CarList/CarList";
+import SearchForm from "../components/SearchForm/SearchForm";
+
 const CatalogPage = () => {
-  return <div>CatalogPage</div>;
-}
-export default CatalogPage
+  return (
+    <>
+      <SearchForm />
+      <CarList />
+    </>
+  );
+};
+export default CatalogPage;

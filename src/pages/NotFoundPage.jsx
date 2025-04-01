@@ -1,4 +1,15 @@
 const NotFoundPage = () => {
-  return <div>NotFoundPage</div>;
+  return (
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        marginTop: "40vh",
+        fontSize: "26px",
+      }}
+    >
+      Oops... Page Not Found!
+    </div>
+  );
 };
 export default NotFoundPage;

@@ -14,6 +14,10 @@
   display: flex;
   gap: 32px;
 }
+.link:hover,
+.link:focus {
+  text-decoration: underline;
+}
 .active {
   color: var(--c-button-hover);
 }
