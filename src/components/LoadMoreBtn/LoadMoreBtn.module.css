@@ -1,0 +1,18 @@
+.button {
+  display: flex;
+  font-weight: 600;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--c-button);
+  border-radius: 12px;
+  padding: 12px 0px;
+  width: 156px;
+  background-color: transparent;
+  transition: border 250ms ease-in-out;
+}
+.button:hover,
+.button:focus {
+  border: 1px solid var(--c-button-hover);
+}

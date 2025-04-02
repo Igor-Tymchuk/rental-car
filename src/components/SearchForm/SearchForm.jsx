@@ -55,22 +55,27 @@ const SearchForm = () => {
             minMileage: "",
             maxMileage: "",
           }}
-          onSubmit={(values) => console.log(values)}
+          onSubmit={(values, action) => {
+            console.log(values);
+            action.resetForm();
+          }}
         >
           {({ setFieldValue }) => (
             <Form className={s.form}>
               <label className={s.label}>
                 Car brand
                 <Field name="brand">
-                  {({ field }) => (
+                  {({ form }) => (
                     <Select
                       classNamePrefix="select"
                       options={brands}
-                      value={brands.find(
-                        (option) => option.value === field.value
-                      )}
+                      value={
+                        brands.find(
+                          (option) => option.value === form.values.brand
+                        ) || null
+                      }
                       onChange={(option) =>
-                        setFieldValue("brand", option.value)
+                        form.setFieldValue("brand", option?.value || "")
                       }
                       placeholder="Choose a brand"
                       components={{
