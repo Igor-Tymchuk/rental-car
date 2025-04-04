@@ -29,6 +29,12 @@
     font-weight: 500;
   }
 }
+.carName {
+  white-space: nowrap;
+  max-width: 246px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .model {
   color: var(--c-button);
 }

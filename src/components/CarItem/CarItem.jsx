@@ -14,7 +14,7 @@ const CarItem = ({ car }) => {
         <use href={liked ? `${sprite}#icon-liked` : `${sprite}#icon-like`} />
       </svg>
       <div className={s.title}>
-        <h3>
+        <h3 className={s.carName}>
           {car?.brand} <span className={s.model}>{car?.model}</span>,{" "}
           {car?.year}
         </h3>

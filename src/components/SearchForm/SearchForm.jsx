@@ -1,15 +1,19 @@
 import { Field, Form, Formik } from "formik";
 import s from "./SearchForm.module.css";
 import { useEffect, useState } from "react";
-import { getBrands } from "../../services/api";
+import { getBrands, getCars } from "../../services/api";
 import Select, { components } from "react-select";
 import { arrayToSelectObj } from "../../utils/arrayToSelectObj";
 import { PRICES } from "../../constants";
 import sprite from "../../assets/sprite.svg";
 import clsx from "clsx";
+import { useSearchParams } from "react-router-dom";
+import { buildSearchParams } from "../../utils/buildSearchParams";
+import toast from "react-hot-toast";
 
 const SearchForm = () => {
   const [brands, setBrands] = useState(null);
+  const [, setSearchParams] = useSearchParams();
   const prices = arrayToSelectObj(PRICES);
 
   const CustomDropdownIndicator = (props) => {
@@ -27,6 +31,31 @@ const SearchForm = () => {
         )}
       </components.DropdownIndicator>
     );
+  };
+
+  const handleSubmit = (values, action) => {
+    if (Number(values.minMileage) > Number(values.maxMileage))
+      return toast.error("'From' cannot be smaller than 'To'...");
+    const searchCars = () => {
+      const fetchCars = async (params) => {
+        try {
+          const response = await getCars(params);
+          return response;
+        } catch (e) {
+          console.log(e);
+        }
+      };
+      const newParamsObject = {
+        ...values,
+        page: 1,
+        limit: 8,
+      };
+      const newSearchParams = buildSearchParams(newParamsObject);
+      setSearchParams(newSearchParams);
+      fetchCars(newSearchParams);
+    };
+    searchCars();
+    action.resetForm();
   };
 
   useEffect(() => {
@@ -55,10 +84,7 @@ const SearchForm = () => {
             minMileage: "",
             maxMileage: "",
           }}
-          onSubmit={(values, action) => {
-            console.log(values);
-            action.resetForm();
-          }}
+          onSubmit={handleSubmit}
         >
           {({ setFieldValue }) => (
             <Form className={s.form}>
