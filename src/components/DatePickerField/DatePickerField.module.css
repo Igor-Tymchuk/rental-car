@@ -1,0 +1,35 @@
+.input {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  box-sizing: border-box;
+  border: none;
+  outline: transparent;
+  border-radius: 12px;
+  padding: 12px 20px;
+  width: 576px;
+  height: 48px;
+  background-color: var(--c-inputs);
+}
+.input::placeholder {
+  color: var(--c-gray);
+}
+.datePickerCalendar {
+  font-family: "Manrope", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.2;
+  background-color: var(--c-white);
+  border-radius: 14px;
+  border: 1px solid var(--c-button);
+  overflow: hidden;
+}
+.datePickerDay {
+  width: 32px;
+  height: 28px;
+  text-align: center;
+  transition: background-color 0.3s ease-in-out;
+}
+.datePickerDay:hover {
+  background-color: var(--c-gray-light);
+}

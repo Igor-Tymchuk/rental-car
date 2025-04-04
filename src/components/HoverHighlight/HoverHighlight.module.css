@@ -1,0 +1,39 @@
+.container {
+  display: flex;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--c-gray);
+}
+
+.tooltip {
+  animation: start 0.8s ease-in-out;
+  top: -15px;
+  right: 0;
+  pointer-events: none;
+  position: absolute;
+  color: var(--c-gray);
+  white-space: nowrap;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.25;
+}
+
+.copyButton {
+  color: rgb(0, 255, 0);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+@keyframes start {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

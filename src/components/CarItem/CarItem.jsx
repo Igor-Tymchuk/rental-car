@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import sprite from "../../assets/sprite.svg";
 import s from "./CarItem.module.css";
+import { getCity } from "../../utils/getCityFromString";
+import { getCountry } from "../../utils/getCountryFromString";
+import { divideNumber } from "../../utils/numberDivider";
 
 const CarItem = ({ car }) => {
   const liked = true;
@@ -20,27 +23,23 @@ const CarItem = ({ car }) => {
       <div className={s.details}>
         <p className={s.address}>
           <span>
-            {car?.address && car?.address.split(",")[1]?.trim()}
+            {car?.address && getCity(car.address)}
             &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
           <span>
-            {car?.address && car?.address.split(",")[2]?.trim()}
+            {car?.address && getCountry(car.address)}
             &nbsp;&nbsp;|&nbsp;&nbsp;
           </span>
           <span>{car?.rentalCompany}&nbsp;&nbsp;|</span>
         </p>
         <p className={s.tech}>
           <span>{car?.type}&nbsp;&nbsp;|&nbsp;&nbsp;</span>
-          <span>
-            {car?.mileage &&
-              car?.mileage
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, " ")}{" "}
-            km
-          </span>
+          <span>{car?.mileage && divideNumber(car?.mileage)} km</span>
         </p>
       </div>
-      <Link className={s.button}>Read more</Link>
+      <Link className={s.button} to={`/catalog/${car.id}`}>
+        Read more
+      </Link>
     </div>
   );
 };

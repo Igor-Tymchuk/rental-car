@@ -1,0 +1,74 @@
+.box {
+  margin: 0 auto;
+  margin-top: 84px;
+  margin-bottom: 70px;
+  display: flex;
+  gap: 72px;
+  width: max-content;
+}
+.leftBlock {
+  width: 640px;
+}
+.rightBlock {
+  padding-top: 20px;
+  width: 488px;
+}
+.icon {
+  margin-right: 8px;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.img {
+  border-radius: 19px;
+  object-fit: cover;
+  width: 640px;
+  height: 512px;
+  margin-bottom: 40px;
+}
+.title {
+  position: relative;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  margin-bottom: 8px;
+}
+.id {
+  display: inline-flex;
+  margin-left: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--c-gray);
+}
+.address {
+  margin-bottom: 16px;
+}
+.price {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.33333;
+  color: var(--c-button);
+  margin-bottom: 32px;
+}
+.list {
+  margin-bottom: 110px;
+}
+.listItem {
+  display: flex;
+  align-items: center;
+}
+.listItem:not(:last-child) {
+  margin-bottom: 16px;
+}
+.description {
+  margin-bottom: 68px;
+}
+.subtitle {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.2;
+  margin-bottom: 20px;
+}

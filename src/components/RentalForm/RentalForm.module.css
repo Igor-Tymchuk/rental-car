@@ -1,0 +1,65 @@
+.box {
+  box-sizing: border-box;
+  border: 1px solid #dadde1;
+  border-radius: 10px;
+  padding: 32px;
+  width: 640px;
+  & h2 {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  & p {
+    color: var(--c-gray);
+    margin-bottom: 24px;
+  }
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.input {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+  box-sizing: border-box;
+  border: none;
+  outline: transparent;
+  border-radius: 12px;
+  padding: 12px 20px;
+  width: 576px;
+  height: 48px;
+  background-color: var(--c-inputs);
+}
+.input::placeholder {
+  color: var(--c-gray);
+}
+.comment {
+  padding: 12px 20px 56px 20px;
+  height: 88px;
+  resize: none;
+  font-family: "Manrope", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.25;
+}
+.button {
+  margin-top: 8px;
+  width: 156px;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.25;
+  color: var(--c-white);
+  border-radius: 12px;
+  padding: 12px 0;
+  background-color: var(--c-button);
+  transition: background-color 250ms ease-in-out;
+}
+.button:hover,
+.button:focus {
+  background-color: var(--c-button-hover);
+}

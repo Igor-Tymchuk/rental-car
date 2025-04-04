@@ -1,4 +1,10 @@
+import CarDetails from "../components/CarDetails/CarDetails";
+
 const DetailsPage = () => {
-  return <div>DetailsPage</div>;
+  return (
+    <div>
+      <CarDetails />
+    </div>
+  );
 };
 export default DetailsPage;

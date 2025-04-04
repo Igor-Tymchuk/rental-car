@@ -10,7 +10,7 @@ const CarList = () => {
     const fetchCars = async (params) => {
       try {
         const response = await getCars(params);
-        setCars(response.cars);
+        setCars(response);
         return response;
       } catch (e) {
         console.log(e);
@@ -29,13 +29,13 @@ const CarList = () => {
     cars && (
       <>
         <ul className={s.list}>
-          {cars.map((car) => (
+          {cars.cars.map((car) => (
             <li key={car.id}>
               <CarItem car={car} />
             </li>
           ))}
         </ul>
-        <LoadMoreBtn />
+        {cars.totalPages > cars.page && <LoadMoreBtn />}
       </>
     )
   );
