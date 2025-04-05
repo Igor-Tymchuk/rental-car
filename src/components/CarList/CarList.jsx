@@ -1,51 +1,43 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import CarItem from "../CarItem/CarItem";
 import s from "./CarList.module.css";
-import { getCars } from "../../services/api";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import { useSearchParams } from "react-router-dom";
+import {
+  selectItems,
+  selectPage,
+  selectTotalPages,
+} from "../../redux/cars/selectors";
+import { getCars } from "../../redux/cars/operations";
+import { useDispatch, useSelector } from "react-redux";
 const CarList = () => {
+  const dispatch = useDispatch();
+  const cars = useSelector(selectItems);
+  const page = useSelector(selectPage);
+  const totalPages = useSelector(selectTotalPages);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [cars, setCars] = useState(null);
-  const [pages, setPages] = useState({ page: null, totalPages: null });
 
   const loadMore = () => {
-    const fetchCars = async (params) => {
-      try {
-        const response = await getCars(params);
-        setCars((prev) => [...(prev || []), ...response.cars]);
-        setPages({ page: response.page, totalPages: response.totalPages });
-        return response;
-      } catch (e) {
-        console.log(e);
-      }
-    };
     const newParamsObject = {
       ...Object.fromEntries(searchParams.entries()),
-      page: Number(pages.page) + 1,
+      page: Number(page) + 1,
     };
     setSearchParams(newParamsObject);
-    fetchCars(newParamsObject);
+    dispatch(getCars(newParamsObject));
   };
 
+  const didFetch = useRef(false);
+
   useEffect(() => {
-    if (cars !== null) return;
-    const fetchCars = async (params) => {
-      try {
-        const response = await getCars(params);
-        setCars(response.cars);
-        setPages({ page: response.page, totalPages: response.totalPages });
-        return response;
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    setSearchParams({
+    if (didFetch.current || cars.length > 0) return;
+    didFetch.current = true;
+    const params = {
       ...Object.fromEntries(searchParams.entries()),
       limit: 8,
-    });
-    fetchCars({ ...Object.fromEntries(searchParams.entries()), limit: 8 });
-  }, [cars, searchParams, setSearchParams]);
+    };
+    setSearchParams(params);
+    dispatch(getCars(params));
+  }, [cars.length, dispatch, searchParams, setSearchParams]);
   return (
     cars && (
       <>
@@ -56,7 +48,7 @@ const CarList = () => {
             </li>
           ))}
         </ul>
-        {pages.totalPages > pages.page && <LoadMoreBtn loadMore={loadMore} />}
+        {totalPages > page && <LoadMoreBtn loadMore={loadMore} />}
       </>
     )
   );

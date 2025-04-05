@@ -1,28 +1,22 @@
 import { useParams } from "react-router-dom";
 import RentalForm from "../RentalForm/RentalForm";
 import s from "./CarDetails.module.css";
-import { useEffect, useState } from "react";
-import { getCarDetails } from "../../services/api";
+import { useEffect } from "react";
 import { getCity } from "../../utils/getCityFromString";
 import { getCountry } from "../../utils/getCountryFromString";
 import { divideNumber } from "../../utils/numberDivider";
 import sprite from "../../assets/sprite.svg";
 import HoverHighlight from "../HoverHighlight/HoverHighlight";
+import { selectDetails } from "../../redux/cars/selectors";
+import { useDispatch, useSelector } from "react-redux";
+import { getCarDetails } from "../../redux/cars/operations";
 const CarDetails = () => {
   const { id } = useParams();
-  const [car, setCar] = useState(null);
+  const dispatch = useDispatch();
+  const car = useSelector(selectDetails);
   useEffect(() => {
-    const fetchCarDetails = async (id) => {
-      try {
-        const response = await getCarDetails(id);
-        setCar(response);
-        return response;
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchCarDetails(id);
-  }, [id]);
+    dispatch(getCarDetails(id));
+  }, [id, dispatch]);
   return (
     car && (
       <div className={s.box}>

@@ -11,7 +11,7 @@ const slice = createSlice({
     page: "",
   },
   reducers: {
-    changeFilter(state, { payload }) {
+    setFilter(state, { payload }) {
       state.brand = payload?.brand;
       state.rentalPrice = payload?.rentalPrice;
       state.minMileage = payload?.minMileage;
@@ -22,5 +22,5 @@ const slice = createSlice({
   },
 });
 
-export const { changeFilter } = slice.actions;
+export const { setFilter } = slice.actions;
 export default slice.reducer;

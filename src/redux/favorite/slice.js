@@ -7,9 +7,12 @@ const slice = createSlice({
   },
   reducers: {
     changeFavorite: (state, { payload }) => {
-      if (state.liked.includes(payload))
-        return state.liked.filter((item) => item !== payload);
-      state.liked.push(payload);
+      const index = state.liked.indexOf(payload);
+      if (index !== -1) {
+        state.liked.splice(index, 1);
+      } else {
+        state.liked.push(payload);
+      }
     },
   },
 });

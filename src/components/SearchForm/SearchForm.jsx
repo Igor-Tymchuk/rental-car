@@ -1,7 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import s from "./SearchForm.module.css";
-import { useEffect, useState } from "react";
-import { getBrands, getCars } from "../../services/api";
+import { useEffect } from "react";
 import Select, { components } from "react-select";
 import { arrayToSelectObj } from "../../utils/arrayToSelectObj";
 import { PRICES } from "../../constants";
@@ -10,11 +9,39 @@ import clsx from "clsx";
 import { useSearchParams } from "react-router-dom";
 import { buildSearchParams } from "../../utils/buildSearchParams";
 import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { selectBrands } from "../../redux/cars/selectors";
+import { getBrands, getCars } from "../../redux/cars/operations";
+import { clearState } from "../../redux/cars/slice";
 
 const SearchForm = () => {
-  const [brands, setBrands] = useState(null);
+  const dispatch = useDispatch();
+  const brands = useSelector(selectBrands);
   const [, setSearchParams] = useSearchParams();
   const prices = arrayToSelectObj(PRICES);
+
+  const handleSubmit = (values, action) => {
+    if (
+      Number(values.minMileage) &&
+      Number(values.maxMileage) &&
+      Number(values.minMileage) > Number(values.maxMileage)
+    )
+      return toast.error("'From' cannot be smaller than 'To'...");
+    const newParamsObject = {
+      ...values,
+      page: 1,
+      limit: 8,
+    };
+    const newSearchParams = buildSearchParams(newParamsObject);
+    setSearchParams(newSearchParams);
+    dispatch(clearState());
+    dispatch(getCars(newSearchParams));
+    action.resetForm();
+  };
+
+  useEffect(() => {
+    dispatch(getBrands());
+  }, [dispatch]);
 
   const CustomDropdownIndicator = (props) => {
     const { selectProps } = props;
@@ -32,40 +59,6 @@ const SearchForm = () => {
       </components.DropdownIndicator>
     );
   };
-
-  const handleSubmit = (values, action) => {
-    if (Number(values.minMileage) > Number(values.maxMileage))
-      return toast.error("'From' cannot be smaller than 'To'...");
-    const searchCars = () => {
-      const fetchCars = async (params) => {
-        try {
-          const response = await getCars(params);
-          return response;
-        } catch (e) {
-          console.log(e);
-        }
-      };
-      const newParamsObject = {
-        ...values,
-        page: 1,
-        limit: 8,
-      };
-      const newSearchParams = buildSearchParams(newParamsObject);
-      setSearchParams(newSearchParams);
-      fetchCars(newSearchParams);
-    };
-    searchCars();
-    action.resetForm();
-  };
-
-  useEffect(() => {
-    const fetchBrands = async () => {
-      const brands = await getBrands();
-      const brandOptions = arrayToSelectObj(brands);
-      setBrands(brandOptions);
-    };
-    fetchBrands();
-  }, []);
 
   const formatNumberWithCommas = (value) => {
     if (!value) return "";
@@ -152,6 +145,7 @@ const SearchForm = () => {
                         type="text"
                         className={clsx(s.number, s.from)}
                         value={formatNumberWithCommas(field.value)}
+                        maxLength={6}
                         onChange={(e) => {
                           const rawValue = removeCommas(e.target.value);
                           if (!isNaN(rawValue)) {
@@ -169,6 +163,7 @@ const SearchForm = () => {
                         type="text"
                         className={clsx(s.number, s.to)}
                         value={formatNumberWithCommas(field.value)}
+                        maxLength={6}
                         onChange={(e) => {
                           const rawValue = removeCommas(e.target.value);
                           if (!isNaN(rawValue)) {
